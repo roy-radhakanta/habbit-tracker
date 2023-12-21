@@ -1,0 +1,30 @@
+{
+  "name": "habbit-tracker",
+  "version": "1.0.0",
+  "description": "Habbit tracker app allowes you to keep tracks for a GOAL everyday and save it's progress towards the week",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/roy-radhakanta/habbit-tracker.git"
+  },
+  "keywords": [
+    "Habbit",
+    "tracker",
+    "habbit",
+    "tracker",
+    "goal",
+    "tracker",
+    "week",
+    "habbit",
+    "tracker"
+  ],
+  "author": "Radhakanta Roy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roy-radhakanta/habbit-tracker/issues"
+  },
+  "homepage": "https://github.com/roy-radhakanta/habbit-tracker#readme"
+}
