@@ -1,0 +1,33 @@
+<section class="section">
+  <div class="section__wrap">
+    <div class="section__wrap__top">
+      <div class="heading">Hi, Radhakanta</div>
+      <div class="sub-heading">13 Dec 2023</div>
+    </div>
+
+    <div class="section__wrap__bottom">
+      <div class="flex aic section__wrap__bottom__flex">
+        <div class="section__wrap__bottom__heading flex-col-half">
+          Today's Habits
+        </div>
+        <div
+          class="section__wrap__bottom__action flex-col-half flex aic flex-col-half--jce"
+        >
+          <button class="add-habit-button" id="addHabitButton">
+            <img src="/images/add-icon.svg" alt="Add habit button" id="addHabitButtonImg" /> Add habit
+          </button>
+          <a href="/history" class="view-history-button button">View history</a>
+        </div>
+      </div>
+      <div class="habits">
+        <div class="no-habits-found tac" id="noHabitFoundContainer">
+          <img src="/images/no-habits.jpg" alt="No habits" />
+        </div>
+        <%- include('_add-new-habit-form') %>
+        <div id="habitsbox">
+            <%- include('_habit') %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

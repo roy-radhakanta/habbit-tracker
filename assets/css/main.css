@@ -1,0 +1,307 @@
+:root {
+  --blue-color: #007bff;
+  --green-color: #18de74;
+  --red-color: #ff0000;
+  --font: "Poppins", sans-serif;
+  --black-color: #000;
+  --dark-light-color: #3c3a3a;
+  --white-color: #fff;
+  --gray-color: gray;
+}
+
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: var(--font);
+  font-size: 1.5rem;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+}
+
+.section__wrap {
+  padding: 4rem;
+}
+
+button,
+.button {
+  background-color: var(--gray-color);
+  color: var(--black-color);
+  border: 0px solid transparent;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.5rem;
+  border-radius: 2rem;
+}
+
+button img,
+.button img {
+  width: 1.5rem;
+}
+
+button:active,
+.button:active {
+  transform: scale(0.9);
+}
+
+button:hover,
+.button:hover {
+  filter: brightness(90%);
+}
+
+button:focus-visible,
+.button:focus-visible {
+  outline: 0.1rem solid #000;
+}
+
+.heading {
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.sub-heading {
+  color: var(--dark-light-color);
+  font-size: 1.7rem;
+}
+
+.section__wrap__top {
+  margin-bottom: 2rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.aic {
+  align-items: center;
+}
+
+.jcsb {
+  justify-content: space-between;
+}
+
+.tac {
+  text-align: center;
+}
+
+.flex-col-half {
+  width: 50%;
+}
+
+.flex-col-half--jce {
+  justify-content: flex-end;
+}
+
+.add-habit-button {
+  background-color: var(--blue-color);
+  color: var(--white-color);
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.no-habits-found {
+  display: none;
+}
+
+.no-habits-found img {
+  width: 35rem;
+  border-radius: 1rem;
+}
+
+.no-habits-found.active {
+  display: block;
+}
+
+.section__wrap__bottom {
+  overflow: hidden;
+  background-color: #eee;
+  border-radius: 1rem;
+  border: 0.1rem solid gainsboro;
+}
+
+.section__wrap__bottom__flex {
+  padding: 1rem;
+  border-bottom: 0.1rem solid gainsboro;
+  background-color: var(--white-color);
+}
+
+.habits {
+  padding: 1rem;
+  max-height: 37rem;
+  height: 100%;
+  overflow: auto;
+}
+
+.view-history-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  text-transform: capitalize;
+  text-decoration: none;
+  background-color: transparent;
+  border: 0.1rem solid gainsboro;
+  margin: 0 0.5rem;
+}
+
+.habit {
+  padding: 0.5rem;
+}
+
+.habit-wrap {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+}
+
+.habit__info {
+  width: 90%;
+}
+
+.habit__name {
+  font-size: 1.8rem;
+}
+
+.habit__creation-date {
+  color: var(--dark-light-color);
+  font-size: 1.4rem;
+}
+
+.habit__action {
+  width: 10%;
+}
+
+.habit__action .button {
+  width: 100%;
+}
+
+.habit__action .button img {
+  width: 2rem;
+}
+
+.habit__action .button#habitDone {
+  background-color: var(--green-color);
+}
+
+.habit__action .button#habitNotDone {
+  background-color: var(--red-color);
+}
+
+.habit__action .button:not(:last-child) {
+  margin-bottom: 0.7rem;
+}
+
+.habit__creation__info {
+  font-size: 1.3rem;
+}
+
+.habit__creation__info .habit__creation__info__achieve:not(:first-child) {
+  padding: 0 0.5rem;
+}
+
+#add-new-habit-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: #00000031;
+}
+
+#add-new-habit-modal.active {
+  display: flex;
+}
+
+.add-new-habit-modal__wrap {
+  background-color: var(--white-color);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  max-width: 30rem;
+  width: 100%;
+}
+
+.add-new-habit-modal__body,
+.add-new-habit-modal__heading {
+  padding: 1rem;
+  position: relative;
+}
+
+.loader::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0000005d;
+  background-image: url("/images/loading.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 10rem;
+  display: none;
+}
+
+.loader.loading::after {
+  display: block;
+}
+
+.add-new-habit-modal__heading {
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: 400;
+  background: #b5b5b5;
+}
+
+.form-item {
+  margin-bottom: 1rem;
+}
+
+.form-item span {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.form-item input {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 1rem;
+  outline: none;
+  border: 0.1rem solid gainsboro;
+}
+
+.form-item button {
+  width: 100%;
+  color: var(--white-color);
+}
+
+.form-item button:first-child {
+  background-color: var(--blue-color);
+  width: 69%;
+  margin-right: 0.5rem;
+}
+
+.form-item button:last-child {
+  background-color: var(--red-color);
+  width: 30%;
+}
