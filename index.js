@@ -1,7 +1,7 @@
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
-
 require("dotenv").config();
+const db = require('./config/mongoose');
 
 const app = express();
 app.use(express.urlencoded());

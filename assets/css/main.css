@@ -190,17 +190,24 @@ button:focus-visible,
 
 .habit__action .button {
   width: 100%;
+  position: relative;
 }
 
 .habit__action .button img {
   width: 2rem;
 }
 
-.habit__action .button#habitDone {
+.habit__action .button.habitDone {
   background-color: var(--green-color);
+  overflow: hidden;
 }
 
-.habit__action .button#habitNotDone {
+.habit__action .button.habitNotDone.loader::after,
+.habit__action .button.habitDone.loader::after {
+  background-size: 3rem;
+}
+
+.habit__action .button.habitNotDone {
   background-color: var(--red-color);
 }
 

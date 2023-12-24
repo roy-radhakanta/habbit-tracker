@@ -20,13 +20,17 @@
         </div>
       </div>
       <div class="habits">
-        <div class="no-habits-found tac" id="noHabitFoundContainer">
+
+        <div class="no-habits-found tac <%= habits.length ? '' : 'active' %>" id="noHabitFoundContainer">
           <img src="/images/no-habits.jpg" alt="No habits" />
         </div>
-        <%- include('_add-new-habit-form') %>
+
+        <%- include('_add-new-habit-form'); %>
+
         <div id="habitsbox">
-            <%- include('_habit') %>
+            <%- include('_habit', { habits: habits }); %>
         </div>
+
       </div>
     </div>
   </div>

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-router.post('/addnew', function(req, res){
-    console.log(req.body);
-});
+
+const habitController = require('../controllers/habit_controller');
+
+router.post('/addnew', habitController.addNewHabit);
 module.exports = router;
