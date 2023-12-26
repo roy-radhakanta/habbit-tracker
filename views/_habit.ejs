@@ -41,28 +41,44 @@
       // looping through each day from seven days ago date
       // creating date @dateStruct
       // and checking status from that "date as key" from habit object @dateWiseStatus
+
+      // d = Date
+      // h = Habit id
+      // a = Action
+
       for(let i = sevenDaysAgoDate; i<= today.getDate(); i++){
       const dateStruct = (today.getMonth()+1)+"/"+i+"/"+today.getFullYear();
       const dateWiseStatus = habit.status[dateStruct];
       let cssClass="";
+      let dataStatus = "Done";
       if(dateWiseStatus?.status){
         switch (dateWiseStatus.status) {
           case "Done":
-          cssClass="done";
+            cssClass="done";
+            dataStatus="Not Done";
             break;
           case "Not Done":
-          cssClass="notdone";
+            cssClass="notdone";
+            dataStatus="Done";
+            break;
+          default:
+            dataStatus="Done";
             break;
         }
       }
     %>
-
-      <div class="habitStatus flex aic jcc <%=cssClass%>">
+      <% if(i<createdDate.getDate()){ %>
+        <div class="habitStatus disabled flex aic jcc <%=cssClass%>">
+          <%=i;%>
+        </div>
+      <% }else{ %>
+        <button class="habitStatus flex aic jcc loader <%=cssClass%>" data-d="<%=dateStruct%>" data-h="<%=habit._id%>" data-a="<%=dataStatus%>" title="Click to change status">
         <%=i;%>
-      </div>
-
+      </button>
+      <%}%>
     <%}%>
   </div>
 
 </div>
-<% }); %> <% } %>
+<% }); %>
+<% } %>

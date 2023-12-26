@@ -47,12 +47,17 @@ module.exports.updateHabit = async function (req, res) {
       .json({ status: false, msg: "Invalid habit! try again" });
   }
   const habitStatus = habit.status;
+  const habitDate = req.body?.date;
   const date = new Date();
-  const todayDate = date.toLocaleDateString();
-  const currentTime = date.toLocaleTimeString();
+  let todayDate = date.toLocaleDateString();
+  // const currentTime = date.toLocaleTimeString();
+  if(habitDate){
+    todayDate=habitDate;
+  }
+
   habitStatus[todayDate] = {
-    date: todayDate,
-    timeStamp: todayDate + " " + currentTime,
+    date: date.toLocaleDateString(),
+    timeStamp: date.toLocaleDateString() + " " + date.toLocaleTimeString(),
     status: status
   };
   const updated  = await Habits.updateOne({_id: hid}, {status: habitStatus});

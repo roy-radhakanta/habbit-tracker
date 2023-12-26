@@ -30,6 +30,9 @@ function Habit() {
   this.newHabitForm = Main.select("#newHabitForm")
     ? Main.select("#newHabitForm")
     : null;
+  this.habitStatusButtons = Main.selectAll(".habitStatus").length
+    ? Main.selectAll(".habitStatus")
+    : null;
 }
 
 Habit.prototype.init = function () {
@@ -55,6 +58,17 @@ Habit.prototype.init = function () {
   if (this.habitDoneButton) {
     this.habitDoneButton.forEach(function (hdb) {
       hdb.addEventListener(
+        "click",
+        function (e) {
+          Habit.habitDone(e, self);
+        },
+        true
+      );
+    });
+  }
+  if (this.habitStatusButtons) {
+    this.habitStatusButtons.forEach(function (hsB) {
+      hsB.addEventListener(
         "click",
         function (e) {
           Habit.habitDone(e, self);
@@ -117,21 +131,21 @@ Habit.habitSaved = function (res) {
           background: "linear-gradient(to right, #ff0000, #007bff)",
         },
       }).showToast();
-      return;
+    } else {
+      Toastify({
+        text: responseJson.msg,
+        duration: 3000,
+        destination: "/",
+        newWindow: false,
+        close: true,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+      }).showToast();
     }
-    Toastify({
-      text: responseJson.msg,
-      duration: 3000,
-      destination: "/",
-      newWindow: false,
-      close: true,
-      gravity: "top",
-      position: "right",
-      stopOnFocus: true,
-      style: {
-        background: "linear-gradient(to right, #00b09b, #96c93d)",
-      },
-    }).showToast();
     setTimeout(() => {
       window.location.reload();
     }, 3000);
@@ -156,6 +170,7 @@ Habit.habitSaved = function (res) {
 Habit.habitDone = function (e, self) {
   let habitID = e.target.dataset.h;
   let habitAction = e.target.dataset.a;
+  let habitDate = e.target.dataset?.d;
   let targetElement = e.target;
   if (targetElement.tagName === "IMG") {
     targetElement = e.target.parentNode;
@@ -166,6 +181,11 @@ Habit.habitDone = function (e, self) {
   if (!habitAction) {
     habitAction = targetElement.dataset.a;
   }
+  let sendData = `hid=${habitID}&status=${habitAction}`;
+  if (habitDate) {
+    sendData = sendData + "&date=" + habitDate;
+  }
+
   targetElement.classList.add("loader", "loading");
   Main.ajax({
     method: "POST",
@@ -173,7 +193,7 @@ Habit.habitDone = function (e, self) {
     headerContentType: "Content-type",
     contentType: "application/x-www-form-urlencoded",
     url: "/habit/update",
-    sendData: `hid=${habitID}&status=${habitAction}`,
+    sendData: sendData,
     callBack: Habit.habitDoneRes,
     button: targetElement,
   });
@@ -197,21 +217,24 @@ Habit.habitDoneRes = function (res) {
           background: "linear-gradient(to right, #ff0000, #007bff)",
         },
       }).showToast();
-      return;
+    } else {
+      Toastify({
+        text: jsonResponse.msg,
+        duration: 3000,
+        destination: "/",
+        newWindow: false,
+        close: true,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+      }).showToast();
     }
-    Toastify({
-      text: jsonResponse.msg,
-      duration: 3000,
-      destination: "/",
-      newWindow: false,
-      close: true,
-      gravity: "top",
-      position: "right",
-      stopOnFocus: true,
-      style: {
-        background: "linear-gradient(to right, #00b09b, #96c93d)",
-      },
-    }).showToast();
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
   } catch (error) {
     Toastify({
       text: "Somthing went wrong! refresh the page and try again now",

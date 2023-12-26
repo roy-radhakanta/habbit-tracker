@@ -94,7 +94,7 @@ button:focus-visible,
   align-items: center;
 }
 
-.jcc{
+.jcc {
   justify-content: center;
 }
 
@@ -149,7 +149,7 @@ button:focus-visible,
 
 .habits {
   padding: 1rem;
-  max-height: 37rem;
+  max-height: calc(100vh - 22rem);
   height: 100%;
   overflow: auto;
 }
@@ -238,6 +238,7 @@ button:focus-visible,
   align-items: center;
   justify-content: center;
   background-color: #00000031;
+  z-index: 9;
 }
 
 #add-new-habit-modal.active {
@@ -258,6 +259,10 @@ button:focus-visible,
   position: relative;
 }
 
+.loader {
+  position: relative;
+}
+
 .loader::after {
   content: "";
   position: absolute;
@@ -271,6 +276,11 @@ button:focus-visible,
   background-position: center center;
   background-size: 10rem;
   display: none;
+  z-index: 9;
+}
+
+.loader.loading {
+  pointer-events: none;
 }
 
 .loader.loading::after {
@@ -318,25 +328,64 @@ button:focus-visible,
   width: 30%;
 }
 
-.habitHistoryWrap{
+.habitHistoryWrap {
   width: 100%;
   border-radius: 0 0 1rem 1rem;
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
   background: var(--dark-light-color);
 }
 
-.habitStatus{
-  margin: .5rem;
+.habitStatus {
+  margin: 0.5rem;
   background-color: var(--white-color);
   border-radius: 50%;
   height: 4rem;
   width: 4rem;
+  overflow: hidden;
 }
 
-.habitStatus.done{
+.habitStatus.done {
   background-color: var(--green-color);
 }
 
-.habitStatus.notdone{
+.habitStatus.notdone {
   background-color: var(--red-color);
+}
+
+.habitStatus::after {
+  background-size: 3rem;
+}
+
+.habitStatus.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: none;
+}
+
+@media (max-width: 991px) {
+  .section__wrap {
+    padding: 2rem;
+  }
+
+  .habitStatus {
+    flex: 0 0 auto;
+  }
+
+  .habit-wrap,
+  .habitHistoryWrap {
+    flex-wrap: wrap;
+  }
+
+  .habit__info {
+    margin-bottom: 1rem;
+  }
+
+  .habit__action,
+  .habit__info {
+    width: 100%;
+  }
+
+  .habits {
+    max-height: calc(100vh - 17rem);
+  }
 }
