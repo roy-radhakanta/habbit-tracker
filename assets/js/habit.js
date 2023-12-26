@@ -14,12 +14,10 @@ function Habit() {
   this.noHabitFoundContainer = Main.select("#noHabitFoundContainer")
     ? Main.select("#noHabitFoundContainer")
     : null;
-  this.habitDoneButton = Main.selectAll(".habitDone").length
-    ? Main.selectAll(".habitDone")
+  this.habitDoneButton = Main.selectAll(".actionButton").length
+    ? Main.selectAll(".actionButton")
     : null;
-  this.habitNotDone = Main.selectAll(".habitNotDone").length
-    ? Main.selectAll(".habitNotDone")
-    : null;
+
   this.closeHabitButton = Main.select("#closeAddHabitButton")
     ? Main.select("#closeAddHabitButton")
     : null;
@@ -137,33 +135,99 @@ Habit.habitSaved = function (res) {
     setTimeout(() => {
       window.location.reload();
     }, 3000);
-  } catch (error) {}
+  } catch (error) {
+    Toastify({
+      text: "Somthing went wrong! refresh the page and try again now",
+      duration: 3000,
+      destination: "/",
+      newWindow: false,
+      close: true,
+      gravity: "top",
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "linear-gradient(to right, #ff0000, #007bff)",
+      },
+    }).showToast();
+    return;
+  }
 };
 
 Habit.habitDone = function (e, self) {
   let habitID = e.target.dataset.h;
+  let habitAction = e.target.dataset.a;
   let targetElement = e.target;
-  if(targetElement.tagName==='IMG'){
+  if (targetElement.tagName === "IMG") {
     targetElement = e.target.parentNode;
   }
   if (!habitID) {
-    habitID = e.target.parentNode.dataset.h;
+    habitID = targetElement.dataset.h;
   }
-  targetElement.classList.add('loader', 'loading');
+  if (!habitAction) {
+    habitAction = targetElement.dataset.a;
+  }
+  targetElement.classList.add("loader", "loading");
   Main.ajax({
     method: "POST",
     async: true,
     headerContentType: "Content-type",
     contentType: "application/x-www-form-urlencoded",
     url: "/habit/update",
-    sendData: `hid=${habitID}`,
+    sendData: `hid=${habitID}&status=${habitAction}`,
     callBack: Habit.habitDoneRes,
     button: targetElement,
   });
 };
 
-Habit.habitDoneRes = function(res){
-
-}
+Habit.habitDoneRes = function (res) {
+  this.button.classList.remove("loader", "loading");
+  try {
+    const jsonResponse = JSON.parse(res);
+    if (!jsonResponse.status) {
+      Toastify({
+        text: jsonResponse.msg,
+        duration: 3000,
+        destination: "/",
+        newWindow: false,
+        close: true,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #ff0000, #007bff)",
+        },
+      }).showToast();
+      return;
+    }
+    Toastify({
+      text: jsonResponse.msg,
+      duration: 3000,
+      destination: "/",
+      newWindow: false,
+      close: true,
+      gravity: "top",
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "linear-gradient(to right, #00b09b, #96c93d)",
+      },
+    }).showToast();
+  } catch (error) {
+    Toastify({
+      text: "Somthing went wrong! refresh the page and try again now",
+      duration: 3000,
+      destination: "/",
+      newWindow: false,
+      close: true,
+      gravity: "top",
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "linear-gradient(to right, #ff0000, #007bff)",
+      },
+    }).showToast();
+    return;
+  }
+};
 
 new Habit().init();

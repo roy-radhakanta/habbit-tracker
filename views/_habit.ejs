@@ -1,10 +1,17 @@
-<% if(habits.length){ %> <% habits.forEach(habit => { const date = new Date(habit.createdAt); %>
+<% if(habits.length){ %>
+  <% habits.forEach(habit => {
+    const today = new Date();
+    const createdDate = new Date(habit.createdAt);
+    let sevenDaysAgo = new Date(today);
+    sevenDaysAgo.setDate(today.getDate() - 7);
+    const sevenDaysAgoDate = sevenDaysAgo.getDate();
+  %>
 <div class="habit">
   <div class="flex aic habit-wrap">
     <div class="habit__info">
       <div class="habit__name"><%=habit.habit%></div>
       <div class="habit__creation-date"><%=
-      date.toLocaleString('en-US', {
+      createdDate.toLocaleString('en-US', {
         year: 'numeric',
         month: 'short',
         day: 'numeric',
@@ -20,13 +27,42 @@
       </div>
     </div>
     <div class="habit__action">
-      <button class="button habitDone" data-h="<%=habit._id%>">
+      <button class="button habitDone actionButton" data-a="Done" data-h="<%=habit._id%>" title="Click to mark Done">
         <img src="/images/checked.svg" alt="Done" />
       </button>
-      <button class="button habitNotDone" data-h="<%=habit._id%>">
+      <button class="button habitNotDone actionButton" data-a="Not Done" data-h="<%=habit._id%>" title="Click to mark Not Done">
         <img src="/images/close.svg" alt="" />
       </button>
     </div>
   </div>
+
+  <div class="flex aic habitHistoryWrap">
+    <%
+      // looping through each day from seven days ago date
+      // creating date @dateStruct
+      // and checking status from that "date as key" from habit object @dateWiseStatus
+      for(let i = sevenDaysAgoDate; i<= today.getDate(); i++){
+      const dateStruct = (today.getMonth()+1)+"/"+i+"/"+today.getFullYear();
+      const dateWiseStatus = habit.status[dateStruct];
+      let cssClass="";
+      if(dateWiseStatus?.status){
+        switch (dateWiseStatus.status) {
+          case "Done":
+          cssClass="done";
+            break;
+          case "Not Done":
+          cssClass="notdone";
+            break;
+        }
+      }
+    %>
+
+      <div class="habitStatus flex aic jcc <%=cssClass%>">
+        <%=i;%>
+      </div>
+
+    <%}%>
+  </div>
+
 </div>
 <% }); %> <% } %>

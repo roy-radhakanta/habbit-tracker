@@ -7,7 +7,7 @@ const habitSchema = new mongoose.Schema(
       require: true,
     },
     status: {
-      type: Array
+      type: Object
     }
   },
   {
