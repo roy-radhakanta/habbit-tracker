@@ -1,4 +1,4 @@
-![image](https://github.com/roy-radhakanta/habbit-tracker/assets/81176431/3b1d7f8b-1924-4eb4-9a47-d280872f33af)
+![image](https://github.com/roy-radhakanta/habbit-tracker/assets/images/app-preview.png)
 
 # Habit tracker
 
