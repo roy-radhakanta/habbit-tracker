@@ -1,3 +1,4 @@
+![Screenshot 2023-12-28 123455](https://github.com/roy-radhakanta/habbit-tracker/assets/81176431/8540090a-d974-430e-8b33-3614c631d8c5)
 
 # Habit tracker
 
