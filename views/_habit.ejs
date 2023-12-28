@@ -1,15 +1,18 @@
 <% if(habits.length){
-    let countDone = 0;
+
     function calculateDateDiff(endDate, startDate){
-    const startMillis = startDate.getTime();
-    const endMillis = endDate.getTime();
-    const timeDifference = endMillis - startMillis;
-    const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
-    return Math.floor(daysDifference);
+    const startDateStruct = startDate.getFullYear()+"-"+startDate.getMonth()+"-"+startDate.getDate();
+    const endDateStruct = endDate.getFullYear()+"-"+endDate.getMonth()+"-"+endDate.getDate();
+    const date1 = new Date(startDateStruct);
+    const date2 = new Date(endDateStruct);
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
   }
 
   %>
   <% habits.forEach(habit => {
+    let countDone = 0;
     const today = new Date();
     const createdDate = new Date(habit.createdAt);
     const daysPassedFromHaibtCreated = calculateDateDiff(today, createdDate);
@@ -33,7 +36,6 @@
       <div class="habit__creation__info">
         <div class="flex aic">
           <div class="habit__creation__info__achieve">Daily</div>
-          <div class="habit__creation__info__achieve">5 done</div>
         </div>
       </div>
     </div>
@@ -59,9 +61,10 @@
 
       for(let i = sevenDaysAgoDate; i<= today.getDate(); i++){
       const dateStruct = (today.getMonth()+1)+"/"+i+"/"+today.getFullYear();
-      const dateWiseStatus = habit.status[dateStruct];
       let cssClass="";
       let dataStatus = "Done";
+      if( habit?.status && (i>=createdDate.getDate())){
+      const dateWiseStatus = habit?.status[dateStruct];
       if(dateWiseStatus?.status){
         switch (dateWiseStatus.status) {
           case "Done":
@@ -78,6 +81,7 @@
             break;
         }
       }
+    }
     %>
       <% if(i<createdDate.getDate()){ %>
         <div class="habitStatus disabled flex aic jcc <%=cssClass%>">
@@ -87,10 +91,10 @@
         <button class="habitStatus flex aic jcc loader <%=cssClass%>" data-d="<%=dateStruct%>" data-h="<%=habit._id%>" data-a="<%=dataStatus%>" title="Click to change status">
         <%=i;%>
       </button>
-      <%}%>
+      <% } %>
 
-    <% }%>
-    <%=countDone+"/"+(daysPassedFromHaibtCreated+1)%>
+    <% } %>
+    <%=countDone+"/"+(daysPassedFromHaibtCreated+1); %>
   </div>
 </div>
 <% }); %>

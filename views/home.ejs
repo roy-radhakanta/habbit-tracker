@@ -2,7 +2,11 @@
   <div class="section__wrap">
     <div class="section__wrap__top">
       <div class="heading">Hi, Radhakanta</div>
-      <div class="sub-heading">13 Dec 2023</div>
+      <div class="sub-heading"><%const today = new Date();%><%=  today.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });%></div>
     </div>
 
     <div class="section__wrap__bottom">
