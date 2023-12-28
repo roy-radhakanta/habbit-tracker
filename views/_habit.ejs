@@ -1,7 +1,18 @@
-<% if(habits.length){ %>
+<% if(habits.length){
+    let countDone = 0;
+    function calculateDateDiff(endDate, startDate){
+    const startMillis = startDate.getTime();
+    const endMillis = endDate.getTime();
+    const timeDifference = endMillis - startMillis;
+    const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+    return Math.floor(daysDifference);
+  }
+
+  %>
   <% habits.forEach(habit => {
     const today = new Date();
     const createdDate = new Date(habit.createdAt);
+    const daysPassedFromHaibtCreated = calculateDateDiff(today, createdDate);
     let sevenDaysAgo = new Date(today);
     sevenDaysAgo.setDate(today.getDate() - 7);
     const sevenDaysAgoDate = sevenDaysAgo.getDate();
@@ -54,6 +65,7 @@
       if(dateWiseStatus?.status){
         switch (dateWiseStatus.status) {
           case "Done":
+            countDone=countDone+1;
             cssClass="done";
             dataStatus="Not Done";
             break;
@@ -76,9 +88,10 @@
         <%=i;%>
       </button>
       <%}%>
-    <%}%>
-  </div>
 
+    <% }%>
+    <%=countDone+"/"+(daysPassedFromHaibtCreated+1)%>
+  </div>
 </div>
 <% }); %>
 <% } %>

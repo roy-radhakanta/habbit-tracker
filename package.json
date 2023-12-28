@@ -4,7 +4,7 @@
   "description": "Habbit tracker app allowes you to keep tracks for a GOAL everyday and save it's progress towards the week",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

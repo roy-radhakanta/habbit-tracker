@@ -38,9 +38,18 @@ const Main = (function () {
     }
   }
 
+  function calculateDateDiff(endDate, startDate){
+    const startMillis = startDate.getTime();
+    const endMillis = endDate.getTime();
+    const timeDifference = endMillis - startMillis;
+    const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+    return Math.floor(daysDifference);
+  }
+
   return {
     select: select,
     selectAll: selectAll,
     ajax: ajax,
+    calculateDateDiff: calculateDateDiff
   };
 })();

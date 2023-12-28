@@ -37,9 +37,14 @@ mongodb+srv://<user name>:<password>@<cluster somthing>.<random id>.mongodb.net/
 ```
 then run this command on the same directory
 ```node
-  npm install
+npm install
 ```
 then run
 ```node
 nodemon
+```
+or
+
+```node
+npm run start
 ```
